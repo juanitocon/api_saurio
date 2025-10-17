@@ -1,68 +1,276 @@
+/* ---------- VARIABLES GLOBALES ---------- */
 :root {
+  --color-bg-dark: #1f1f1f;
+  --color-bg-light: #ffffff;
+  --color-surface-dark: #2c2c2c;
+  --color-surface-light: #f5f5f5;
+  --color-text-dark: #e6e6e6;
+  --color-text-light: #1f1f1f;
+  --color-primary: #646cff;
+  --color-primary-hover: #535bf2;
+  --color-border: rgba(255, 255, 255, 0.15);
+  --radius: 10px;
+  --transition: 0.25s ease;
+  
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  color-scheme: dark;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* ---------- MODO CLARO ---------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    color-scheme: light;
+  }
 }
-a:hover {
-  color: #535bf2;
+
+/* ---------- REGLAS BÁSICAS ---------- */
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  transition: background-color var(--transition), color var(--transition);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+  }
 }
 
+h1, h2, h3, h4 {
+  margin: 0.5em 0;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ---------- BOTONES ---------- */
 button {
-  border-radius: 8px;
+  border-radius: var(--radius);
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all var(--transition);
+  background-color: var(--color-primary);
+  color: #fff;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: var(--color-primary-hover);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:active {
+  transform: scale(0.97);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
+/* ---------- INPUTS Y SELECTS ---------- */
+input, select {
+  padding: 0.4em 0.6em;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  font-family: inherit;
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-dark);
+  transition: border var(--transition), background-color var(--transition);
+}
+input:focus, select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  input, select {
+    background-color: var(--color-surface-light);
+    color: var(--color-text-light);
   }
-  a:hover {
-    color: #747bff;
+}
+
+/* ---------- CARDS / PRODUCTOS ---------- */
+.card {
+  background-color: var(--color-surface-dark);
+  border-radius: var(--radius);
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+@media (prefers-color-scheme: light) {
+  .card {
+    background-color: var(--color-surface-light);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/* ---------- IMÁGENES DE PRODUCTOS ---------- */
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* ---------- FILTROS Y LISTAS ---------- */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* ---------- MENÚ LATERAL ---------- */
+.side-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  z-index: 100;
+}
+
+.side-menu {
+  background-color: var(--color-surface-dark);
+  width: 240px;
+  height: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  border-right: 1px solid var(--color-border);
+}
+@media (prefers-color-scheme: light) {
+  .side-menu {
+    background-color: var(--color-surface-light);
   }
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 0.6em;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  color: inherit;
+}
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- MODAL ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modal {
+  background-color: var(--color-surface-dark);
+  border-radius: var(--radius);
+  padding: 1.5em;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-color-scheme: light) {
+  .modal {
+    background-color: var(--color-surface-light);
+  }
+}
+
+/* ---------- BARRA INFERIOR DE TABS ---------- */
+.bottom-tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5em;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface-dark);
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
+}
+.tab {
+  background: transparent;
+  color: inherit;
+  font-size: 0.9em;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+.tab-active {
+  border-bottom: 2px solid var(--color-primary);
+  font-weight: 600;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface-dark);
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--color-border);
+}
+header h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
+.icon-button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+}
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
