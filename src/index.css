@@ -1,17 +1,14 @@
 /* ---------- VARIABLES GLOBALES ---------- */
 :root {
-  --color-bg-dark: #1f1f1f;
-  --color-bg-light: #ffffff;
-  --color-surface-dark: #2c2c2c;
-  --color-surface-light: #f5f5f5;
-  --color-text-dark: #e6e6e6;
-  --color-text-light: #1f1f1f;
-  --color-primary: #646cff;
-  --color-primary-hover: #535bf2;
-  --color-border: rgba(255, 255, 255, 0.15);
+  --color-bg: #d3a8a8;              /* fondo principal blanco */
+  --color-surface: #f5f5f5;         /* tarjetas, menús, etc. */
+  --color-text: #222222;            /* texto principal oscuro */
+  --color-primary: #4a6cff;         /* azul principal */
+  --color-primary-hover: #2f4ce8;
+  --color-border: rgba(0, 0, 0, 0.1);
   --radius: 10px;
   --transition: 0.25s ease;
-  
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -19,21 +16,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-dark);
-  color-scheme: dark;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  color-scheme: light;
 }
 
-/* ---------- MODO CLARO ---------- */
-@media (prefers-color-scheme: light) {
-  :root {
-    background-color: var(--color-bg-light);
-    color: var(--color-text-light);
-    color-scheme: light;
-  }
-}
-
-/* ---------- REGLAS BÁSICAS ---------- */
+/* ---------- BASE ---------- */
 * {
   box-sizing: border-box;
 }
@@ -44,16 +32,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-dark);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   transition: background-color var(--transition), color var(--transition);
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: var(--color-bg-light);
-    color: var(--color-text-light);
-  }
 }
 
 h1, h2, h3, h4 {
@@ -81,7 +62,7 @@ button {
   cursor: pointer;
   transition: all var(--transition);
   background-color: var(--color-primary);
-  color: #fff;
+  color: #2b2727;
 }
 button:hover {
   background-color: var(--color-primary-hover);
@@ -96,45 +77,34 @@ button:disabled {
 
 /* ---------- INPUTS Y SELECTS ---------- */
 input, select {
-  padding: 0.4em 0.6em;
+  padding: 0.45em 0.6em;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   font-family: inherit;
-  background-color: var(--color-surface-dark);
-  color: var(--color-text-dark);
+  background-color: #fff;
+  color: var(--color-text);
   transition: border var(--transition), background-color var(--transition);
 }
 input:focus, select:focus {
   border-color: var(--color-primary);
   outline: none;
 }
-@media (prefers-color-scheme: light) {
-  input, select {
-    background-color: var(--color-surface-light);
-    color: var(--color-text-light);
-  }
-}
 
 /* ---------- CARDS / PRODUCTOS ---------- */
 .card {
-  background-color: var(--color-surface-dark);
+  background-color: var(--color-surface);
   border-radius: var(--radius);
   padding: 1em;
   display: flex;
   align-items: center;
   gap: 1em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-}
-@media (prefers-color-scheme: light) {
-  .card {
-    background-color: var(--color-surface-light);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  }
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ---------- IMÁGENES DE PRODUCTOS ---------- */
@@ -164,14 +134,14 @@ input:focus, select:focus {
 .side-menu-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: flex-start;
   z-index: 100;
 }
 
 .side-menu {
-  background-color: var(--color-surface-dark);
+  background-color: var(--color-surface);
   width: 240px;
   height: 100%;
   padding: 1em;
@@ -179,11 +149,6 @@ input:focus, select:focus {
   flex-direction: column;
   gap: 1em;
   border-right: 1px solid var(--color-border);
-}
-@media (prefers-color-scheme: light) {
-  .side-menu {
-    background-color: var(--color-surface-light);
-  }
 }
 
 .menu-button {
@@ -196,14 +161,14 @@ input:focus, select:focus {
   color: inherit;
 }
 .menu-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 /* ---------- MODAL ---------- */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,17 +176,12 @@ input:focus, select:focus {
 }
 
 .modal {
-  background-color: var(--color-surface-dark);
+  background-color: var(--color-surface);
   border-radius: var(--radius);
   padding: 1.5em;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-@media (prefers-color-scheme: light) {
-  .modal {
-    background-color: var(--color-surface-light);
-  }
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* ---------- BARRA INFERIOR DE TABS ---------- */
@@ -230,7 +190,7 @@ input:focus, select:focus {
   justify-content: space-around;
   padding: 0.5em;
   border-top: 1px solid var(--color-border);
-  background-color: var(--color-surface-dark);
+  background-color: var(--color-surface);
   position: sticky;
   bottom: 0;
   z-index: 50;
@@ -253,7 +213,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-surface-dark);
+  background-color: var(--color-surface);
   padding: 0.75em 1em;
   border-bottom: 1px solid var(--color-border);
 }
@@ -272,5 +232,5 @@ header h1 {
   transition: background var(--transition);
 }
 .icon-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 }
